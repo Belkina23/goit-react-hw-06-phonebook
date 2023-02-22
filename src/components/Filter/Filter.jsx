@@ -1,19 +1,22 @@
 import { SectionFilter, Label, Input } from './Filter.styled';
-import { PropTypes } from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilter } from '../../redux/filtersSlice';
+import { getFilter } from '../../redux/selectors';
 
-const Filter = ({ value, onChengeFilter }) => {
+const Filter = () => {
+  const filterValue = useSelector(getFilter);
+  const dispatch = useDispatch();
+
+  const handleChange = event => {
+    dispatch(setFilter(event.target.value));
+  };
 
   return (
     <SectionFilter>
       <Label>Filter</Label>
-      <Input type="text" value={value} onChange={onChengeFilter} />
+      <Input type="text" value={filterValue} onChange={handleChange} />
     </SectionFilter>
   );
-};
-
-Filter.prototype = {
-  value: PropTypes.string,
-  onChengeFilter: PropTypes.func,
 };
 
 export default Filter;

@@ -1,5 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { addContact } from '../../redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 import { Form, Input, Button } from './ContactForm.styled';
 
 const shortid = require('shortid');
@@ -7,9 +10,11 @@ const inputNameId = shortid.generate();
 const inputNumberId = shortid.generate();
 const buttonId = shortid.generate();
 
-const ContactForm = ({ onSubmit }) => {
+const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
 
   const changeName = e => {
     setName(e.currentTarget.value);
@@ -19,9 +24,17 @@ const ContactForm = ({ onSubmit }) => {
     setNumber(e.currentTarget.value);
   };
 
-  const handelSubmit = event => {
-    event.preventDefault();
-    onSubmit({ name, number });
+  const isContains = contactName => {
+    return contacts.some(({ name }) => name === contactName);
+  };
+
+  const handelSubmit = e => {
+    e.preventDefault();
+    if (isContains(name)) {
+      alert(`${name} is allready in contacts`);
+      return;
+    }
+    dispatch(addContact({ name, number }));
     reset();
   };
 
@@ -70,8 +83,8 @@ const ContactForm = ({ onSubmit }) => {
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
 
 export default ContactForm;
