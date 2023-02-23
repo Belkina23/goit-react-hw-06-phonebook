@@ -19,7 +19,7 @@ const ContactsList = () => {
   };
 
   const contactsToRender = getFilteredContacts();
-
+ console.log(contactsToRender)
   return (
     <Container>
       <h2>My contacts</h2>
@@ -33,7 +33,7 @@ const ContactsList = () => {
 };
 
 ContactsList.propTypes = {
-  contacts: PropTypes.arrayOf(
+  contactsToRender: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
