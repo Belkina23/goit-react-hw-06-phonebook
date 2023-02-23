@@ -33,7 +33,7 @@ const ContactsList = () => {
 };
 
 ContactsList.propTypes = {
-  contactsToRender: PropTypes.arrayOf(
+  contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
