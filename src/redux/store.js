@@ -18,8 +18,8 @@ import { combineReducers } from 'redux';
 const persistConfig = {
   key: 'contacts',
   storage,
-  // blacklist: ['filter'],
-  whitelist: ['contacts'],
+  blacklist: ['filter'],
+  // whitelist: ['contacts'],
 };
 
 const rootReducer = combineReducers({
